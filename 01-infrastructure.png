@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EDF2F7"/>
+    </linearGradient>
+
+    <!-- Card Shadow -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.06"/>
+    </filter>
+    <filter id="focusShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.10"/>
+    </filter>
+
+    <!-- Markers for Connectors -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#D97706"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1600" height="900" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <g stroke="#E2E8F0" stroke-width="1" opacity="0.6">
+    <line x1="80" y1="0" x2="80" y2="900" stroke-dasharray="4 8"/>
+    <line x1="800" y1="0" x2="800" y2="900" stroke-dasharray="4 8"/>
+    <line x1="1520" y1="0" x2="1520" y2="900" stroke-dasharray="4 8"/>
+    <line x1="0" y1="140" x2="1600" y2="140" stroke-dasharray="4 8"/>
+    <line x1="0" y1="820" x2="1600" y2="820" stroke-dasharray="4 8"/>
+  </g>
+
+  <!-- ==================== HEADER ==================== -->
+  <g id="Header">
+    <rect x="80" y="44" width="6" height="52" rx="3" fill="#FF9900"/>
+    <text x="100" y="74" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A" letter-spacing="-0.5">AWS Backup &amp; Recovery System</text>
+    <text x="100" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="400" fill="#64748B">EC2 Infrastructure &amp; Persistent Storage Lifecycle</text>
+    
+    <!-- AWS Region Badge -->
+    <rect x="1340" y="52" width="180" height="36" rx="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" filter="url(#cardShadow)"/>
+    <circle cx="1360" cy="70" r="5" fill="#10B981"/>
+    <text x="1374" y="75" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#334155">Region: ap-south-1</text>
+  </g>
+
+  <!-- ==================== AWS CLOUD BOUNDARY ==================== -->
+  <rect x="80" y="140" width="1440" height="680" rx="16" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" filter="url(#cardShadow)"/>
+  
+  <!-- Boundary Badge -->
+  <rect x="104" y="128" width="144" height="26" rx="6" fill="#232F3E"/>
+  <text x="120" y="145" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#FFFFFF" letter-spacing="0.5">AWS CLOUD VPC</text>
+
+  <!-- Availability Zone Container -->
+  <rect x="110" y="190" width="820" height="590" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="6 6"/>
+  <rect x="130" y="178" width="180" height="24" rx="4" fill="#E2E8F0"/>
+  <text x="142" y="194" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#475569" letter-spacing="0.5">AVAILABILITY ZONE: ap-south-1a</text>
+
+  <!-- ==================== EC2 INSTANCE ==================== -->
+  <g id="EC2-Instance" transform="translate(150, 240)">
+    <rect width="320" height="490" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#focusShadow)"/>
+    
+    <!-- Header Banner -->
+    <path d="M 0 12 Q 0 0 12 0 L 308 0 Q 320 0 320 12 L 320 64 L 0 64 Z" fill="#FFF7ED"/>
+    <rect x="20" y="18" width="32" height="32" rx="6" fill="#FF9900"/>
+    <path d="M 28 26 L 36 22 L 44 26 L 44 42 L 36 46 L 28 42 Z" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round"/>
+    
+    <text x="64" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#0F172A">BackupProject-EC2</text>
+    <text x="64" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#EA580C">Amazon EC2 (Ubuntu 22.04 LTS)</text>
+    
+    <!-- Specs Section -->
+    <g transform="translate(20, 84)">
+      <rect width="280" height="66" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#64748B">INSTANCE SPECS</text>
+      <text x="14" y="48" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="13" font-weight="600" fill="#334155">t2.micro / t3.micro</text>
+      <circle cx="250" cy="33" r="4" fill="#10B981"/>
+      <text x="238" y="50" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="600" fill="#10B981" text-anchor="middle">RUNNING</text>
+    </g>
+
+    <!-- Workload & Test Data Section -->
+    <g transform="translate(20, 166)">
+      <rect width="280" height="150" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#64748B">PRODUCTION WORKLOAD</text>
+      
+      <rect x="14" y="38" width="252" height="44" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+      <text x="24" y="56" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#0F172A">~/backup-test/test.txt</text>
+      <text x="24" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#64748B">Primary state verification file</text>
+
+      <rect x="14" y="92" width="252" height="48" rx="6" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+      <text x="24" y="112" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#334155">Root Mount:</text>
+      <text x="96" y="112" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="500" fill="#64748B">/dev/nvme0n1p1 (/)</text>
+      <text x="24" y="128" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#334155">Recovery:</text>
+      <text x="96" y="128" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="500" fill="#0D9488">/mnt/recovery</text>
+    </g>
+
+    <!-- Access Channel -->
+    <g transform="translate(20, 332)">
+      <rect width="280" height="130" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#64748B">SECURE CONNECTIVITY</text>
+      
+      <circle cx="26" cy="52" r="10" fill="#E2E8F0"/>
+      <path d="M 23 52 L 29 52 M 26 49 L 26 55" stroke="#475569" stroke-width="1.5"/>
+      <text x="44" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#334155">EC2 Instance Connect</text>
+      
+      <text x="14" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#64748B">Security Group: Port 22 SSH</text>
+      <text x="14" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#64748B">Inbound Proxy Verification</text>
+    </g>
+  </g>
+
+  <!-- ==================== EBS STORAGE STACK ==================== -->
+  
+  <!-- 1. Primary Volume -->
+  <g id="Primary-EBS-Volume" transform="translate(560, 240)">
+    <rect width="320" height="230" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" filter="url(#cardShadow)"/>
+    <path d="M 0 12 Q 0 0 12 0 L 308 0 Q 320 0 320 12 L 320 54 L 0 54 Z" fill="#F1F5F9"/>
+    
+    <rect x="18" y="14" width="28" height="28" rx="6" fill="#3B82F6"/>
+    <!-- Disk cylinder icon -->
+    <ellipse cx="32" cy="22" rx="7" ry="3" fill="#FFFFFF"/>
+    <path d="M 25 22 v 10 a 7 3 0 0 0 14 0 v -10" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+    
+    <text x="56" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#0F172A">Primary Root EBS Volume</text>
+    <text x="56" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#64748B">vol-0dd3fd2e06a9b4f40</text>
+
+    <g transform="translate(18, 68)">
+      <text x="0" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Configuration:</text>
+      <text x="120" y="20" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="12" font-weight="600" fill="#0F172A">8 GiB (gp3 / gp2)</text>
+      
+      <text x="0" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Device Path:</text>
+      <text x="120" y="44" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="12" font-weight="600" fill="#0F172A">/dev/xvda (nvme0n1)</text>
+      
+      <text x="0" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Attachment:</text>
+      <text x="120" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#10B981">In-use (Root / Boot)</text>
+
+      <rect x="0" y="86" width="284" height="54" rx="6" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="10" y="106" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#475569">Block-Level Persistence</text>
+      <text x="10" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#64748B">Continuous live workload I/O storage layer</text>
+    </g>
+  </g>
+
+  <!-- 2. Cloned Recovery Volume -->
+  <g id="Recovery-EBS-Volume" transform="translate(560, 500)">
+    <rect width="320" height="230" rx="12" fill="#FFFFFF" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 2" filter="url(#cardShadow)"/>
+    <path d="M 0 12 Q 0 0 12 0 L 308 0 Q 320 0 320 12 L 320 54 L 0 54 Z" fill="#F0FDFA"/>
+    
+    <rect x="18" y="14" width="28" height="28" rx="6" fill="#0D9488"/>
+    <ellipse cx="32" cy="22" rx="7" ry="3" fill="#FFFFFF"/>
+    <path d="M 25 22 v 10 a 7 3 0 0 0 14 0 v -10" fill="none" stroke="#FFFFFF" stroke-width="1.5"/>
+    
+    <text x="56" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#0F172A">Restored Recovery Volume</text>
+    <text x="56" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#0D9488">BackupProject-Recovery-Volume</text>
+
+    <g transform="translate(18, 68)">
+      <text x="0" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Origin Snapshot:</text>
+      <text x="120" y="20" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#0F172A">Auto-Snapshot-Latest</text>
+      
+      <text x="0" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Cloned Device:</text>
+      <text x="120" y="44" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="12" font-weight="600" fill="#0F172A">/dev/sdf (nvme1n1)</text>
+      
+      <text x="0" y="68" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Filesystem Flag:</text>
+      <text x="120" y="68" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#0D9488">mount -o nouuid</text>
+
+      <rect x="0" y="86" width="284" height="54" rx="6" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1"/>
+      <text x="10" y="106" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#0F766E">Disaster Recovery Target</text>
+      <text x="10" y="124" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#64748B">Validates live file recovery from cold blocks</text>
+    </g>
+  </g>
+
+  <!-- ==================== BACKUP & RECOVERY TIER ==================== -->
+  <g id="Backup-Storage-Tier" transform="translate(1000, 190)">
+    <rect width="480" height="590" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+    <rect x="20" y="-12" width="220" height="24" rx="4" fill="#E2E8F0"/>
+    <text x="32" y="4" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#475569" letter-spacing="0.5">BACKUP &amp; RECOVERY LIFECYCLE</text>
+
+    <!-- Point-in-time Snapshot Card -->
+    <g transform="translate(30, 40)">
+      <rect width="420" height="210" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" filter="url(#cardShadow)"/>
+      <rect x="18" y="18" width="32" height="32" rx="6" fill="#D97706"/>
+      <circle cx="34" cy="34" r="8" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+      <path d="M 34 29 L 34 35 L 38 35" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+      
+      <text x="62" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#0F172A">Amazon EBS Snapshots</text>
+      <text x="62" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#64748B">S3-Backed Incremental Block Storage</text>
+
+      <g transform="translate(18, 70)">
+        <rect width="384" height="36" rx="6" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+        <text x="14" y="22" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="600" fill="#92400E">BackupProject-Auto-Snapshot-*</text>
+        
+        <text x="0" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Metadata Tags:</text>
+        <text x="110" y="60" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="500" fill="#334155">Project: BackupProject</text>
+        <text x="110" y="78" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="500" fill="#334155">BackupType: Automated</text>
+        
+        <text x="0" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#475569">Storage Type:</text>
+        <text x="110" y="104" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#64748B">Multi-AZ Redundant (AWS Managed S3)</text>
+      </g>
+    </g>
+
+    <!-- Orchestration & Automation Card -->
+    <g transform="translate(30, 274)">
+      <rect width="420" height="280" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" filter="url(#cardShadow)"/>
+      <rect x="18" y="18" width="32" height="32" rx="6" fill="#4F46E5"/>
+      <path d="M 28 34 L 32 38 L 40 30" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      
+      <text x="62" y="34" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#0F172A">Automated Lifecycle Engine</text>
+      <text x="62" y="48" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="500" fill="#64748B">Serverless Scheduled Automation</text>
+
+      <g transform="translate(18, 68)">
+        <!-- Step 1 -->
+        <circle cx="12" cy="18" r="10" fill="#EEF2FF"/>
+        <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#4F46E5" text-anchor="middle">1</text>
+        <text x="32" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#0F172A">EventBridge Scheduler</text>
+        <text x="32" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#64748B">cron(0 2 * * ? *) / rate-based invocation</text>
+
+        <!-- Step 2 -->
+        <circle cx="12" cy="68" r="10" fill="#EEF2FF"/>
+        <text x="12" y="72" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#4F46E5" text-anchor="middle">2</text>
+        <text x="32" y="66" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#0F172A">AWS Lambda (Python 3.12, Boto3)</text>
+        <text x="32" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#64748B">ec2:CreateSnapshot + Metadata Tagging</text>
+
+        <!-- Step 3 -->
+        <circle cx="12" cy="118" r="10" fill="#EEF2FF"/>
+        <text x="12" y="122" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#4F46E5" text-anchor="middle">3</text>
+        <text x="32" y="116" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#0F172A">Snapshot Retention Management</text>
+        <text x="32" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#64748B">Auto-pruning older than N-snapshot threshold</text>
+
+        <!-- Step 4 -->
+        <circle cx="12" cy="168" r="10" fill="#EEF2FF"/>
+        <text x="12" y="172" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#4F46E5" text-anchor="middle">4</text>
+        <text x="32" y="166" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#0F172A">CloudWatch Alarm &amp; SNS Alerting</text>
+        <text x="32" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#64748B">Active notification on invocation errors</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW CONNECTORS & ARROWS ==================== -->
+  
+  <!-- Flow 1: EC2 to Primary EBS Volume (Bidirectional I/O) -->
+  <path d="M 470 330 L 560 330" fill="none" stroke="#3B82F6" stroke-width="2.5"/>
+  <rect x="480" y="318" width="70" height="22" rx="4" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="515" y="333" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#1D4ED8" text-anchor="middle">ROOT I/O</text>
+
+  <!-- Flow 2: Primary EBS to S3 Snapshot Tier -->
+  <path d="M 880 345 L 1030 345" fill="none" stroke="#D97706" stroke-width="2.5" marker-end="url(#arrow-orange)"/>
+  <rect x="910" y="325" width="90" height="24" rx="4" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+  <text x="955" y="341" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#92400E" text-anchor="middle">1. SNAPSHOT</text>
+
+  <!-- Flow 3: Snapshot to Restored Recovery Volume (Clone) -->
+  <path d="M 1210 400 L 1210 615 L 880 615" fill="none" stroke="#0D9488" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#arrow-green)"/>
+  <rect x="1000" y="603" width="110" height="24" rx="4" fill="#F0FDFA" stroke="#99F6E4" stroke-width="1"/>
+  <text x="1055" y="619" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#0F766E" text-anchor="middle">2. CLONE RESTORE</text>
+
+  <!-- Flow 4: Recovery Volume Attached back to EC2 (/mnt/recovery) -->
+  <path d="M 560 635 L 470 635" fill="none" stroke="#0D9488" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <rect x="480" y="623" width="70" height="24" rx="4" fill="#F0FDFA" stroke="#99F6E4" stroke-width="1"/>
+  <text x="515" y="639" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="700" fill="#0F766E" text-anchor="middle">3. MOUNT</text>
+
+  <!-- ==================== FOOTER / METRIC LEGEND ==================== -->
+  <g transform="translate(80, 836)">
+    <text x="0" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#64748B">LEGEND &amp; VERIFICATION FLOW:</text>
+    
+    <line x1="210" y1="12" x2="240" y2="12" stroke="#3B82F6" stroke-width="2.5"/>
+    <text x="248" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#334155">Primary Block Storage</text>
+
+    <line x1="430" y1="12" x2="460" y2="12" stroke="#D97706" stroke-width="2.5"/>
+    <text x="468" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#334155">Automated Snapshot Pipeline</text>
+
+    <line x1="680" y1="12" x2="710" y2="12" stroke="#0D9488" stroke-width="2.5" stroke-dasharray="4 2"/>
+    <text x="718" y="16" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#334155">Disaster Recovery Clone Mount (-o nouuid)</text>
+    
+    <text x="1440" y="16" font-family="SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace" font-size="11" font-weight="500" fill="#94A3B8" text-anchor="end">Production AWS Portfolio Architecture</text>
+  </g>
+</svg>
