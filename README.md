@@ -1,227 +1,225 @@
 # AWS Backup & Recovery System
 
-> An automated AWS backup and recovery system for EC2 data using Amazon EBS Snapshots, AWS Lambda, IAM, and scheduled automation.
+An automated AWS backup and recovery system for EC2 data using **Amazon EBS Snapshots, AWS Lambda, IAM, and scheduled automation**.
 
 ---
 
 ## 📌 Overview
 
-The **AWS Backup & Recovery System** is a cloud-based backup automation project designed to protect data stored on an Amazon EC2 instance.
+This project demonstrates how cloud infrastructure can be automated to protect data from accidental deletion, corruption, or infrastructure failure.
 
-The system automatically creates **EBS snapshots** of a designated EBS volume using an AWS Lambda function. A retention policy ensures that only the **3 most recent automated snapshots** are retained, while older snapshots are automatically deleted.
+The system automatically creates **EBS snapshots** of an EC2 instance's attached volume, maintains a defined retention limit, and deletes older snapshots automatically.
 
-The project also includes recovery testing to verify that backed-up data can be restored successfully.
+The project was built to gain hands-on experience with **AWS compute, storage, serverless automation, IAM, and backup/recovery workflows**.
 
 ---
 
 ## 🎯 Problem Statement
 
-Data stored on cloud infrastructure can be affected by accidental deletion, system failures, or other operational issues.
+Manual backups can be inconsistent and difficult to maintain.
 
-Manually creating and managing backups can also become repetitive and difficult to maintain.
+This project addresses that problem by automating the backup process:
 
-This project demonstrates how AWS services can be combined to automate the backup lifecycle and provide a practical recovery mechanism.
+* Automatically create EBS snapshots
+* Apply metadata tags to backups
+* Maintain a fixed retention limit
+* Automatically remove older snapshots
+* Provide a recovery mechanism using stored snapshots
 
 ---
 
 ## 🏗️ Architecture
 
-![AWS Backup & Recovery Architecture](architecture/architecture.png)
+![AWS Backup & Recovery Infrastructure](01-infrastructure.png)
 
 ### Architecture Flow
 
 ```text
-                Scheduled Trigger
-                       │
-                       ▼
-                 AWS Lambda
-                       │
-                       ▼
-                Target EBS Volume
-                       │
-                       ▼
-                 EBS Snapshot
-                       │
-                       ▼
-              Retention Management
-                       │
-              ┌────────┴────────┐
-              │                 │
-        Latest 3 Kept      Older Deleted
-              │
-              ▼
-          Recovery
-              │
-              ▼
-       Data Validation
+Amazon EC2
+     │
+     ▼
+Amazon EBS Volume
+     │
+     │
+     ▼
+AWS Lambda
+     │
+     ├── Create EBS Snapshot
+     │
+     ├── Tag Snapshot
+     │
+     ├── Check Existing Backups
+     │
+     └── Delete Older Snapshots
+     │
+     ▼
+EBS Snapshot Backup
+     │
+     ▼
+Recovery when required
 ```
 
 ---
 
 ## ☁️ AWS Services Used
 
-| AWS Service            | Purpose                                              |
-| ---------------------- | ---------------------------------------------------- |
-| **Amazon EC2**         | Provides the Linux-based compute environment         |
-| **Amazon EBS**         | Provides persistent block storage attached to EC2    |
-| **EBS Snapshots**      | Creates point-in-time backups of the EBS volume      |
-| **AWS Lambda**         | Automates snapshot creation and retention management |
-| **Amazon EventBridge** | Triggers the backup process on a schedule            |
-| **AWS IAM**            | Controls permissions required by the Lambda function |
+| AWS Service            | Purpose                                                   |
+| ---------------------- | --------------------------------------------------------- |
+| **Amazon EC2**         | Hosts the test environment and provides compute resources |
+| **Amazon EBS**         | Provides persistent block storage attached to EC2         |
+| **EBS Snapshots**      | Stores point-in-time backups of the EBS volume            |
+| **AWS Lambda**         | Automates snapshot creation and retention management      |
+| **Amazon EventBridge** | Used for scheduled automation                             |
+| **AWS IAM**            | Controls permissions required by the Lambda function      |
 
 ---
 
 ## ⚙️ How It Works
 
-### 1. Scheduled Backup
+### 1. EC2 & EBS
 
-A scheduled event triggers the AWS Lambda function automatically.
+An EC2 instance is configured with an attached EBS volume containing test data.
 
-### 2. Snapshot Creation
+The EBS volume acts as the persistent storage that needs to be backed up.
 
-Lambda uses the AWS SDK (`boto3`) to create a snapshot of the configured EBS volume.
+### 2. Scheduled Automation
 
-The target volume is supplied through a Lambda environment variable:
+A scheduled automation trigger invokes the Lambda function.
 
-```text
-VOLUME_ID
-```
+This removes the need to manually create backups.
 
-This keeps the volume configuration separate from the application logic.
+### 3. Snapshot Creation
 
-### 3. Snapshot Tagging
+The Lambda function uses the AWS SDK for Python (`boto3`) to create an EBS snapshot of the configured volume.
 
-Each automated snapshot is tagged with information such as:
+Each snapshot receives metadata tags such as:
 
 ```text
-Project      = BackupProject
-BackupType   = Automated
-CreatedAt    = <timestamp>
+Project = BackupProject
+BackupType = Automated
+CreatedAt = <timestamp>
 ```
-
-These tags allow the Lambda function to identify snapshots belonging to the project.
 
 ### 4. Retention Management
 
-The Lambda function retrieves automated snapshots and sorts them by creation time.
+The Lambda function checks existing automated snapshots and sorts them by creation time.
 
-The retention policy keeps the **3 newest snapshots**.
+The system maintains the **3 most recent snapshots**.
 
-Any snapshots beyond the retention limit are automatically deleted.
+Older snapshots beyond the retention limit are automatically deleted.
 
 ```text
-Snapshot 1  ← Latest       KEEP
-Snapshot 2  ←               KEEP
-Snapshot 3  ←               KEEP
-Snapshot 4  ← Older         DELETE
-Snapshot 5  ← Older         DELETE
+Latest Snapshot     → Keep
+2nd Latest          → Keep
+3rd Latest          → Keep
+Older Snapshots     → Delete
 ```
 
 ### 5. Recovery
 
-When recovery is required, an appropriate EBS snapshot can be used to restore the backed-up storage.
-
-The restored data is then validated to confirm that the recovery process was successful.
+If the original EBS volume needs to be restored, an EBS snapshot can be used to create a new volume and recover the stored data.
 
 ---
 
-## 🧠 Key Implementation
+## 💻 Lambda Implementation
 
 The backup automation is implemented using Python and `boto3`.
 
-The Lambda function:
+Key functionality includes:
 
-* Creates EBS snapshots
-* Adds metadata tags
-* Retrieves automated project snapshots
-* Sorts snapshots by creation time
-* Applies the retention policy
-* Deletes snapshots beyond the retention limit
-* Returns a successful execution response
+* Creating EBS snapshots
+* Timestamp-based snapshot descriptions
+* Snapshot tagging
+* Querying automated snapshots
+* Sorting snapshots by creation time
+* Enforcing a retention limit
+* Automatically deleting older snapshots
+
+The EBS volume ID is configured through a **Lambda environment variable** rather than being hard-coded into the source code.
+
+Source code:
+
+[`lambda/backup_lambda.py`](lambda/backup_lambda.py)
 
 ---
 
 ## 🧪 Testing & Validation
 
-The system was tested through the following workflow:
+### Backup Snapshot
 
-### Backup Test
+![Backup Snapshot](02-backup-snapshot.png)
 
-* Created test data on the EBS volume
-* Executed the backup process
-* Verified successful snapshot creation
+Verified that the Lambda function successfully creates an EBS snapshot of the configured volume.
 
-### Retention Test
+### Automation
 
-* Created multiple automated snapshots
-* Verified that the newest 3 snapshots were retained
-* Verified that older snapshots were removed according to the retention policy
+![Automation](03-automation.png)
 
-### Recovery Test
+Verified the automated backup workflow and Lambda execution.
 
-* Used the backup snapshot for recovery
-* Restored the required storage
-* Verified that the test data was successfully recovered
+### Recovery Validation
 
-**Result:** Backup, retention, and recovery workflows were successfully validated.
+![Recovery Validation](04-recovery-validation.png)
+
+Validated the recovery process using the generated EBS snapshot and confirmed that the backed-up data could be restored.
 
 ---
 
 ## 🔐 Security Considerations
 
-The project follows basic AWS security practices:
-
 * IAM permissions are used to control Lambda access to EC2/EBS resources.
-* AWS credentials are not hard-coded into the Lambda function.
-* The EBS volume ID is supplied through a Lambda environment variable.
-* Private keys and credentials are excluded from the Git repository using `.gitignore`.
+* The EBS volume ID is stored as a Lambda environment variable.
+* No AWS access keys or secret credentials are stored in the repository.
+* IAM permissions should follow the **principle of least privilege**.
+* Sensitive AWS credentials and private key files are never committed to GitHub.
 
 ---
 
 ## 💰 Cost Considerations
 
-AWS resources used in this project can incur charges depending on usage.
+The project uses AWS resources that may incur charges depending on usage.
 
-Particular attention should be given to:
+The main potential costs are associated with:
 
-* EBS snapshot storage
-* EBS volumes
-* EC2 instance runtime
-* Lambda invocations
-* Other supporting AWS resources
+* EC2 instance usage
+* EBS storage
+* EBS snapshots
+* Lambda executions
 
-For a learning project, unnecessary resources should be stopped or deleted when they are no longer required.
+For learning environments, unused resources should be stopped or deleted when they are no longer required.
 
 ---
 
 ## 📚 Key Learnings
 
-Through this project, I gained hands-on experience with:
+Through this project, I gained practical experience with:
 
-* Amazon EC2 and EBS
-* EBS snapshot-based backups
-* AWS Lambda automation
-* Python with `boto3`
-* IAM permissions and execution roles
-* Scheduled cloud automation
-* Snapshot retention policies
-* Cloud recovery workflows
-* Backup validation and testing
-* Managing AWS resources with automation
+* Amazon EC2
+* Amazon EBS
+* EBS Snapshots
+* AWS Lambda
+* AWS IAM
+* Amazon EventBridge
+* `boto3`
+* Serverless automation
+* Backup retention strategies
+* Cloud storage and recovery concepts
+* Testing and validating cloud infrastructure
+* Designing automated operational workflows
 
 ---
 
 ## 🚀 Future Improvements
 
-Possible improvements to the system include:
+Possible future enhancements include:
 
-* Backup failure notifications using Amazon SNS
-* Centralized monitoring using Amazon CloudWatch
-* More configurable retention periods
+* **Amazon SNS** notifications for backup failures and successes
+* **Amazon CloudWatch** monitoring and alarms
+* Configurable retention periods
 * Backup status reporting
-* Cross-region backup replication
-* Infrastructure as Code using Terraform or AWS CloudFormation
-* Automated recovery testing
+* Cross-region snapshot replication
+* Infrastructure as Code using **Terraform or AWS CloudFormation**
+* Backup verification and automated recovery testing
 
 ---
 
@@ -231,27 +229,22 @@ Possible improvements to the system include:
 aws-backup-recovery-system/
 │
 ├── README.md
+├── 01-infrastructure.png
+├── 02-backup-snapshot.png
+├── 03-automation.png
+├── 04-recovery-validation.png
 │
-├── architecture/
-│   └── architecture.png
-│
-├── lambda/
-│   └── backup_lambda.py
-│
-└── screenshots/
-    ├── 01-infrastructure.png
-    ├── 02-backup-snapshot.png
-    ├── 03-automation.png
-    └── 04-recovery-validation.png
+└── lambda/
+    └── backup_lambda.py
 ```
 
 ---
 
 ## ✅ Project Status
 
-**Completed & Tested**
+**Completed and tested successfully.**
 
-This project was built as a hands-on AWS Cloud project to understand how backup automation, snapshot management, retention policies, and recovery workflows can be implemented using AWS-native services.
+The project demonstrates an automated AWS backup workflow with snapshot creation, retention management, scheduled automation, and recovery validation.
 
 ---
 
@@ -259,6 +252,6 @@ This project was built as a hands-on AWS Cloud project to understand how backup 
 
 **Shravani Bharambe**
 
-Cloud & DevOps | AWS | Linux | Networking
+Computer Science Student | Cloud & DevOps Enthusiast
 
-[GitHub](https://github.com/shravanibharambe)
+Focused on building practical projects with **AWS, Cloud Infrastructure, Networking, Linux, and DevOps technologies**.
